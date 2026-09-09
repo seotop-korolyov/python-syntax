@@ -434,3 +434,16 @@ cat = Cat()
 cat.speak()
 lion = Lion()
 print (f"Lion speak like {lion.speak()}")
+
+#Modules
+import math
+
+print ("The value of pi is", math.pi)
+#help (math)
+#Import only one function
+from math import pi
+print ("The value of pi is", pi)
+
+#rename the name of module
+import math as mth
+print ("The value of pi is", mth.pi)
