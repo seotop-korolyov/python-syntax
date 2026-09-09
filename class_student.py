@@ -41,7 +41,7 @@ class Student():
         if self.grades :
             print (f"Grades: {self.grades}")
         else:
-            print (f"The Student {self.name} doesn't have grades")
+            print (f"The Student {self.name} hasesn't had grades yet")
         print (f"Average: {self.average_grade()}")
 
 name = "Anna"
