@@ -220,6 +220,9 @@
 # Any other choice:
 #     print "This option is not implemented yet."
 
+#File for students
+file_name = "school.json"
+
 class Student():
     def __init__(self, name, age, grades):
         self.name = name
@@ -356,19 +359,25 @@ def save_students(school):
         }
         student_data.append(data)
 
-    with open("school.json", "w") as file:
+    with open(file_name, "w") as file:
         json.dump(student_data, file, indent=4)
 #Load students from a file
 def load_students(school):
-    with open("school.json", "r") as file:
-        students_data = json.load(file)
+    try:
+        with open(file_name, "r") as file:
+            students_data = json.load(file)
 
-    for data in students_data:
-        new_student = Student(data["name"], data["age"], data["grades"])
-        school.add_student(new_student)
+        for data in students_data:
+            new_student = Student(data["name"], data["age"], data["grades"])
+            school.add_student(new_student)
+    except FileNotFoundError:
+        print(f"The file {file_name} is not found")
 
 #Add a school
 school = School("Python Academy")
+
+#Load students from the file
+load_students(school)
 
 #Add students
 #student_anna = Student("Anna", 20, [85, 90, 78])
@@ -388,8 +397,7 @@ while True:
     print("4. Remove student")
     print("5. Add grade")
     print("6. Save Students")
-    print("7. Load Students")
-    print("8. Exit")
+    print("7. Exit")
 
     choice = input("Choose an option: ")
 
@@ -411,11 +419,8 @@ while True:
 #Save students
     elif choice == "6":
         save_students(school)
-#load students
-    elif choice == "7":
-        load_students(school)
 #Exit
-    elif choice == "8":
+    elif choice == "7":
         print("Goodbye!")
         break
     else:
