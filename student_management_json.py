@@ -362,8 +362,10 @@ def save_students(school):
 def load_students(school):
     with open("school.json", "r") as file:
         students_data = json.load(file)
-    print(students_data)
 
+    for data in students_data:
+        new_student = Student(data["name"], data["age"], data["grades"])
+        school.add_student(new_student)
 
 #Add a school
 school = School("Python Academy")
@@ -386,7 +388,8 @@ while True:
     print("4. Remove student")
     print("5. Add grade")
     print("6. Save Students")
-    print("7. Exit")
+    print("7. Load Students")
+    print("8. Exit")
 
     choice = input("Choose an option: ")
 
@@ -408,8 +411,11 @@ while True:
 #Save students
     elif choice == "6":
         save_students(school)
-#Exit
+#load students
     elif choice == "7":
+        load_students(school)
+#Exit
+    elif choice == "8":
         print("Goodbye!")
         break
     else:
