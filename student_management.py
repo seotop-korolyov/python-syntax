@@ -271,7 +271,7 @@ class School():
         return False
 
 #Add_student_menu
-def add_student_menu():
+def add_student_menu(school):
     while True:
         name = input("Enter the name of the student: ").strip()
         if not name:
@@ -287,14 +287,18 @@ def add_student_menu():
             break
         except ValueError:
             print("Invalid age. Please enter a valid number.")
-            continue
     new_student = Student(name , age, [])
     school.add_student(new_student)
     print(f"Student {name} was added to the school {school.name}")
 
 #Find_student_menu
-def find_student_menu():
-    name = input("Enter the name of the student to find: ")
+def find_student_menu(school):
+    while True:
+        name = input("Enter the name of the student to find: ").strip()
+        if not name:
+            print("Name cannot be empty.")
+            continue
+        break
     student = school.find_student(name)
     if student:
         student.display_info()
@@ -302,8 +306,13 @@ def find_student_menu():
         print(f"Student {name} was not found")
 
 #Remove_student_menu
-def remove_student_menu():
-    name = input("Enter the name of the student to remove: ")
+def remove_student_menu(school):
+    while True:
+        name = input("Enter the name of the student to remove: ").strip()
+        if not name:
+            print("Name cannot be empty.")
+            continue
+        break
     removed = school.remove_student(name)
     if removed:
         print(f"Student {name} was removed")
@@ -311,24 +320,26 @@ def remove_student_menu():
         print(f"Student {name} was not found")
 
 #Add_grade_menu
-def add_grade_menu():
-    name = input("Enter the name of the student to add a grade:")
-    name = name.strip()
-    if not name:
-        print("Name cannot be empty.")
-        return
+def add_grade_menu(school):
+    while True:
+        name = input("Enter the name of the student to add a grade:").strip()
+        if not name:
+            print("Name cannot be empty.")
+            continue
+        break
     student = school.find_student(name)
     if student:
-        try:
-            grade = int(input("Enter the grade to add:"))
-            if grade < 0 or grade > 100:
-                print("Invalid grade. Please enter a number between 0 and 100.")
-                return
-            student.add_grade(grade)
-            print(f"Grade {grade} was added to student {name}")
-        except ValueError:
-            print("Invalid grade. Please enter a valid number.")
-            return
+        while True:
+            try:
+                grade = int(input("Enter the grade to add:"))
+                if grade < 0 or grade > 100:
+                    print("Invalid grade. Please enter a number between 0 and 100.")
+                    continue
+                student.add_grade(grade)
+                print(f"Grade {grade} was added to student {name}")
+                break
+            except ValueError:
+                print("Invalid grade. Please enter a valid number.")
     else:
         print(f"Student {name} was not found")     
 
@@ -339,6 +350,7 @@ school = School("Python Academy")
 student_anna = Student("Anna", 20, [85, 90, 78])
 student_tom = Student("Tom", 19, [])
 student_mia = Student("Mia", 21, [92, 88])
+
 #Add at the school
 school.add_student(student_anna)
 school.add_student(student_tom)
@@ -357,19 +369,19 @@ while True:
 
 #Add student 
     if choice == "1":
-        add_student_menu()
+        add_student_menu(school)
 #Show students
     elif choice == "2":
         school.show_students()
 #Find student
     elif choice == "3":
-        find_student_menu()
+        find_student_menu(school)
 #Remove student
     elif choice == "4":
-        remove_student_menu()
+        remove_student_menu(school)
 #Add grade
     elif choice == "5":
-        add_grade_menu()
+        add_grade_menu(school)
 #Exit
     elif choice == "6":
         print("Goodbye!")
